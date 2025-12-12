@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <string.h>
+
 
 // definition of password and id
 #define id 12345
@@ -18,7 +17,7 @@ void login() { // variables
     printf("Password:");
     scanf(" %9s", input_password);
     int c;
-    while ((c = getchar()) != '\n' && c != EOF)
+    while ((c = getchar()) != '\n')
       ;
 
     // validity condition
@@ -30,4 +29,5 @@ void login() { // variables
   }
   // loop running condition
   while (loop_counter);
+  return 0;
 }
