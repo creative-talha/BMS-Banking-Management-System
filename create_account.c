@@ -1,8 +1,11 @@
+#include "header.h"
 #include <stdio.h>
 void create_account() {
   // variables
-  char password[21], password2[21], id[51], id2[51];
-  int k = 1;
+
+  int k = 1, i = 10;
+  char password2[21], id2[51];
+  struct user u;
 
   // some rules for the banker to know before saving data
   printf("\t\t\tSOME RULES TO NOTE!\n");
@@ -18,22 +21,28 @@ void create_account() {
   // loop in case the input is incorrect
   while (k) {
     // input
+    printf("Name:");
+    scanf("%50s", u.Name);
 
     printf("ID:");
-    scanf("%50s", id);
+    scanf("%15s", u.id);
 
     printf("Confirm ID:");
-    scanf("%50s", id2);
+    scanf("%15s", id2);
 
     printf("PASSWORD:");
-    scanf("%20s", password);
+    scanf("%20s", u.password);
 
     printf("Confirm PASSWORD:");
     scanf("%20s", password2);
+    // status
+    u.status = 'A';
+    // balance
+    u.balance = 0;
 
     // validity to confirm that the id and passwords are confirmed by entring
     // again
-    if (!(strcmp(id, id2) || strcmp(password2, password)))
+    if (!(strcmp(u.id, id2) || strcmp(password2, u.password)))
       k = 0;
     else {
       k = 1;
@@ -42,6 +51,7 @@ void create_account() {
   }
   // file handling to save the data for future use
   FILE *fp;
-  fp = fopen("user.txt", "a");
-  fprintf(fp, "%s %s\n", id, password);
+  fp = fopen("user.bin", "ab");
+  fwrite(&u, sizeof(u), 1, fp);
+  fclose(fp);
 }

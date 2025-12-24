@@ -14,10 +14,13 @@ void login() { // variables
     // login inputs
     printf("User id:");
     scanf(" %d", &input_id);
+    int c = 0;
+    while (c = getchar() != '\n') {
+    }
     printf("Password:");
     scanf(" %9s", input_password);
-    int c;
-    while ((c = getchar()) != '\n')
+    c = 0;
+    while (c = getchar() != '\n')
       ;
 
     // validity condition
