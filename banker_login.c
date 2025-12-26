@@ -1,5 +1,7 @@
 
-
+#include "banker_header.h"
+#include <stdio.h>
+#include <string.h>
 // definition of password and id
 #define id 12345
 #define password "admin1"
@@ -28,9 +30,10 @@ void login() { // variables
       printf("Invalid Credantial please try again!\n");
     else
       loop_counter--;
-
+    // including cleaning function to clean the terminal
+    clean();
   }
   // loop running condition
   while (loop_counter);
-  return 0;
+  return;
 }

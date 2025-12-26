@@ -6,10 +6,13 @@ struct user {
   unsigned int balance;
 };
 // functions
+void clean(void);
 void login();
 char banker_menu(void);
 void create_account();
 void view_account(void);
-void update_user_account();
+void update_user_account(void);
+void freeze_actiavte_account();
+int main();
 
 #endif

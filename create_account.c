@@ -1,5 +1,6 @@
-#include "header.h"
+#include "banker_header.h"
 #include <stdio.h>
+#include <string.h>
 void create_account() {
   // variables
 
@@ -35,10 +36,11 @@ void create_account() {
 
     printf("Confirm PASSWORD:");
     scanf("%20s", password2);
+
     // status
     u.status = 'A';
     // balance
-    u.balance = 0;
+    u.balance = 500;
 
     // validity to confirm that the id and passwords are confirmed by entring
     // again
