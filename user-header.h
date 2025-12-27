@@ -1,6 +1,9 @@
 #ifndef user_header_h
 #define user_header_h
 #include <time.h>
+
+// variables
+
 // structures
 struct user {
   char id[16], Name[51], password[21], status;
@@ -19,9 +22,13 @@ struct transaction {
 };
 
 // functions
+int main();
 void clean(void);
 void user_login(void);
 int user_menu(void);
 void check_balance(void);
 void transfer();
+unsigned long get_next_txn_id(void);
+void print_datetime(time_t raw_time);
+void veiw_transaction();
 #endif
