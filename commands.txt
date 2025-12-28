@@ -1,0 +1,7 @@
+banker account
+gcc banker-main.c banker-login.c banker-menu.c create-account.c view-account.c update-user-account.c freeze-activate-account.c clean.c -o o
+
+//opening
+./o
+
+

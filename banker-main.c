@@ -1,8 +1,9 @@
-/*gcc banker_login.c banker_main.c banker_menu.c clean.c create_account.c
-freeze_activate_account.c update_user_account.c veiw_account.c -o combined_file
+/*gcc banker_main.c banker_login.c  banker_menu.c clean.c create_account.c
+view_account.c update_user_account.c freeze_activate_account.c -o combined_file
+-Wall -Wextra
 ---->this is how i will now compile the files
 ./combined_file----->this is how i will execute the file*/
-#include "banker_header.h"
+#include "banker-header.h"
 #include <stdio.h>
 int main() {
   // variables
@@ -24,10 +25,10 @@ int main() {
       update_user_account();
       break;
     case '5':
-      freeze_actiavte_account();
+      freeze_activate_account();
       break;
     case '6':
-      main();
+      continue;
       break;
     case '7':
       return 0;

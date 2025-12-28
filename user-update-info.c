@@ -1,12 +1,10 @@
-#include "user-header.h"
+#include "common-structs-header.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 void update_account(void) {
-
   struct user u;
-
   char choice;
   int option = 1;
   FILE *fp, *ft;
@@ -15,7 +13,7 @@ void update_account(void) {
   ft = fopen("temp.bin", "wb");
 
   if (!fp || !ft) {
-    printf("\n====================================\n");
+    printf("====================================\n");
     printf("        FILE ACCESS ERROR\n");
     printf("====================================\n");
     printf("Unable to open required files.\n");
@@ -23,10 +21,9 @@ void update_account(void) {
   }
 
   while (fread(&u, sizeof(u), 1, fp) == 1) {
-
     if (strcmp(user_info.id, u.id) == 0) {
-
-      printf("\n====================================\n");
+      // Display update menu in box-style
+      printf("====================================\n");
       printf("        UPDATE ACCOUNT INFO\n");
       printf("====================================\n");
       printf(" Logged-in User ID : %s\n", user_info.id);
@@ -38,13 +35,12 @@ void update_account(void) {
       printf(" Enter Choice : ");
       scanf(" %c", &choice);
 
-      clean();
+      clean(); // clear screen for input
 
       switch (choice) {
-
       case '1': {
         char n1[51], n2[51];
-        printf("\n---------- CHANGE NAME ----------\n");
+        printf("---------- CHANGE NAME ----------\n");
         do {
           printf(" New Name     : ");
           scanf("%50s", n1);
@@ -55,10 +51,9 @@ void update_account(void) {
         printf("\n Name updated successfully.\n");
         break;
       }
-
       case '2': {
         char i1[16], i2[16];
-        printf("\n---------- CHANGE ID ------------\n");
+        printf("---------- CHANGE ID ------------\n");
         do {
           printf(" New ID       : ");
           scanf("%15s", i1);
@@ -69,10 +64,9 @@ void update_account(void) {
         printf("\n ID updated successfully.\n");
         break;
       }
-
       case '3': {
         char p1[21], p2[21];
-        printf("\n-------- CHANGE PASSWORD --------\n");
+        printf("-------- CHANGE PASSWORD --------\n");
         do {
           printf(" New Password     : ");
           scanf("%20s", p1);
@@ -83,13 +77,11 @@ void update_account(void) {
         printf("\n Password updated successfully.\n");
         break;
       }
-
       default:
         printf("\n Invalid option selected.\n");
         break;
       }
     }
-
     fwrite(&u, sizeof(u), 1, ft);
   }
 
@@ -99,24 +91,30 @@ void update_account(void) {
   remove("user.bin");
   rename("temp.bin", "user.bin");
 
-  printf("\n====================================\n");
+  printf("====================================\n");
   printf("     ACCOUNT UPDATED SUCCESSFULLY\n");
   printf("====================================\n");
 
-  printf("\n------------------------------------\n");
-  printf(" 1. Update Another Field\n");
-  printf(" 2. Return to Menu\n");
-  printf(" 3. Exit Application\n");
-  printf("------------------------------------\n");
-  printf(" Enter Option : ");
-  scanf(" %d", &option);
-
-  clean();
+  // next action menu in boxed style
+  do {
+    printf("------------------------------------\n");
+    printf(" 1. Update Another Field\n");
+    printf(" 2. Return to Menu\n");
+    printf(" 3. Exit Application\n");
+    printf("------------------------------------\n");
+    printf(" Enter Option : ");
+    if (scanf(" %d", &option) != 1) {
+      while (getchar() != '\n')
+        ;         // clear invalid input
+      option = 0; // loop again
+    }
+    clean();
+  } while (option != 1 && option != 2 && option != 3);
 
   switch (option) {
   case 2:
-    return;
+    return; // go back to menu
   case 3:
-    exit(0);
+    exit(0); // exit program
   }
 }

@@ -1,7 +1,7 @@
 // gcc user-login.c clean.c -o combined_file
 //./combined_file
 
-#include "user-header.h"
+#include "common-structs-header.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -20,11 +20,15 @@ void user_login(void) {
   // loop in case invalid credantials
   do {
     // input
-    printf("Account Number:");
-    scanf(" %s", account_number);
+    printf("====================================\n");
+    printf("           USER LOGIN                \n");
+    printf("====================================\n");
+    printf(" Account Number : ");
+    scanf(" %15s", account_number);
 
-    printf("Password:");
-    scanf(" %s", password);
+    printf(" Password       : ");
+    scanf(" %20s", password);
+    printf("====================================\n");
 
     // cleaning the terminal
     clean();
@@ -34,7 +38,7 @@ void user_login(void) {
 
     if (!fp) {
       printf("File error\n");
-      return 0;
+      return;
     }
 
     // starting reading file
@@ -51,10 +55,14 @@ void user_login(void) {
         strcpy(user_info.Name, u.Name);
         strcpy(user_info.password, u.password);
         user_info.status = u.status;
-        return 0;
+        return;
+        fclose(fp);
       }
     }
-    printf("\n\t\tinvalid Credantials!\n\n");
+    printf("====================================\n");
+    printf(" Invalid credentials. Try again.\n");
+    printf("====================================\n");
+
     // closing files
     fclose(fp);
 

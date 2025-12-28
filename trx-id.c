@@ -1,4 +1,4 @@
-#include "user-header.h"
+#include "common-structs-header.h"
 #include <stdio.h>
 
 unsigned long get_next_txn_id(void) {

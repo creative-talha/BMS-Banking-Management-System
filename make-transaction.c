@@ -1,5 +1,6 @@
-#include "user-header.h"
+#include "common-structs-header.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
@@ -13,15 +14,19 @@ void transfer() {
   // files
   FILE *fu, *ft;
 
-  // structres
+  // structures
   struct transaction t;
   struct user u;
 
-  // loop for making multiple input
+  // loop for making multiple transactions
   do {
+    // check if sender account is frozen
     if (user_info.status == 'F') {
-      printf("Your account has been freezed by the Bank.You can,t make a "
-             "trasaction!\n ");
+      printf("====================================\n");
+      printf("           NOTICE\n");
+      printf(" Your account has been freezed by the Bank.\n");
+      printf(" You cannot make a transaction.\n");
+      printf("====================================\n");
       option = 2;
       break;
     }
@@ -31,125 +36,138 @@ void transfer() {
     sender_confirmation = 0;
     receiver_confirmation = 0;
 
-    /* code */
-
-    // loop in case user is unot found
+    // loop until valid receiver is found
     while (found == 0) {
+      printf("====================================\n");
+      printf("       ENTER RECEIVER ACCOUNT\n");
+      printf("====================================\n");
+      printf(" Account Number: ");
+      scanf("%15s", t.account_id);
 
-      // input for reciever
-      printf("Account Number: ");
-      scanf("%15s", t.account_id); // safer input
+      // cleaning the terminal
+      clean();
 
-      // OPENING FILE FOR SEARCHING
+      // open file for searching
       fu = fopen("user.bin", "rb");
       if (fu == NULL) {
         printf("Unable to open user file.\n");
         return;
       }
 
-      // searching file
       while (fread(&u, sizeof(u), 1, fu) == 1) {
         not_eligible = 0;
 
         if (strcmp(t.account_id, user_info.id) == 0) {
-          printf("Reciever can not be same as sender\n");
+          printf("====================================\n");
+          printf("           ERROR\n");
+          printf(" Receiver cannot be the same as sender\n");
+          printf("====================================\n");
           not_eligible = 1;
           break;
         }
 
         if ((strcmp(u.id, t.account_id) == 0) && u.status != 'A') {
-          printf("The recieiver account has been freezed!\n");
+          printf("====================================\n");
+          printf("           ERROR\n");
+          printf(" Receiver account is frozen!\n");
+          printf("====================================\n");
           not_eligible = 1;
           break;
         }
 
-        // if found
         if (strcmp(u.id, t.account_id) == 0) {
           found = 1;
           break;
         }
       }
 
-      // closing the file
       fclose(fu);
 
-      // if user not found
-      if ((found == 0) && (not_eligible == 0))
-        printf("Account not found! Try again.\n");
+      if ((found == 0) && (not_eligible == 0)) {
+        printf("====================================\n");
+        printf("           ERROR\n");
+        printf(" Account not found. Try again.\n");
+        printf("====================================\n");
+      }
     }
 
+    // loop until valid amount is entered
     while (amount_check == 1) {
-      // as account found now make transaction
-      printf("Amount: ");
-      scanf("%u", &amount);
+      printf("====================================\n");
+      printf("           ENTER AMOUNT\n");
+      printf("====================================\n");
+      printf(" Amount: ");
+      if (scanf("%u", &amount) != 1) {
+        while (getchar() != '\n')
+          ;
+        // cleaning the terminal
+        clean();
+        printf("====================================\n");
+        printf("           ERROR\n");
+        printf(" Invalid input. Enter a positive number.\n");
+        printf("====================================\n");
+        continue;
+      }
+      clean;
 
-      // conditions for validity
       if (amount < 1) {
-        printf("\nThe amount should be greater then 0\n");
-      }
-
-      else if (amount > user_info.balance) {
-        printf("\nInsufficient amount\n");
-      }
-
-      else
+        printf("====================================\n");
+        printf("           ERROR\n");
+        printf(" Amount must be greater than 0\n");
+        printf("====================================\n");
+      } else if (amount > user_info.balance) {
+        printf("====================================\n");
+        printf("           ERROR\n");
+        printf(" Insufficient balance\n");
+        printf("====================================\n");
+      } else
         amount_check = 0;
     }
 
-    // after the user and account has been confirmed now it is time to make
-    // changes
-
-    // oening files
+    // open files to update balances
     fu = fopen("user.bin", "rb");
     ft = fopen("temp.bin", "wb");
-
     if (fu == NULL || ft == NULL) {
       printf("File error.\n");
       return;
     }
 
-    // starting to search and move the files to another
     while (fread(&u, sizeof(u), 1, fu) == 1) {
-
-      // changes in sender balance
       if (strcmp(user_info.id, u.id) == 0) {
         u.balance -= amount;
         sender_confirmation = 1;
       }
-
-      // changes in receiver balance
       if (strcmp(t.account_id, u.id) == 0) {
         u.balance += amount;
         receiver_confirmation = 1;
       }
 
-      // reading all the file in temp
       fwrite(&u, sizeof(u), 1, ft);
     }
 
-    // closing files
     fclose(fu);
     fclose(ft);
 
     if (sender_confirmation && receiver_confirmation) {
-      // COMMIT
       remove("user.bin");
       rename("temp.bin", "user.bin");
-
-      // update in-memory sender balance
       user_info.balance -= amount;
 
-      printf("Transaction successful.\n");
+      printf("====================================\n");
+      printf("          SUCCESS\n");
+      printf(" Transaction completed successfully\n");
+      printf(" New Balance: %u\n", user_info.balance);
+      printf("====================================\n");
     } else {
-      // ROLLBACK
       remove("temp.bin");
-      printf("Transaction failed. System error.\n");
+      printf("====================================\n");
+      printf("           ERROR\n");
+      printf(" Transaction failed. System error.\n");
+      printf("====================================\n");
       return;
     }
 
-    // now if transaction is done time to save the transaction history
-
-    // SAVE TRANSACTION HISTORY
+    // save transaction history
     FILE *fp = fopen("transaction.bin", "ab");
     if (fp == NULL) {
       printf("Unable to open transaction file.\n");
@@ -159,7 +177,7 @@ void transfer() {
     t.txn_id = get_next_txn_id();
     t.amount = amount;
     strcpy(t.performed_by, user_info.id); // sender
-    strcpy(t.account_id, t.account_id);
+    // receiver account already in t.account_id
     t.balance_after = user_info.balance;
     t.type = 'T';
     t.timestamp = time(NULL);
@@ -167,20 +185,33 @@ void transfer() {
     fwrite(&t, sizeof(t), 1, fp);
     fclose(fp);
 
-    printf("\n\nSelect one of the following:\nMake another transaction\n1.Menu"
-           "\n2.Exit\n\nOption:");
-    scanf(" %d", &option);
-    // cleaning the terminal
+    // repeat / menu / exit
+
+    // cleaning terminal
+    clean();
+
+    printf("====================================\n");
+    printf("         TRANSACTION MENU\n");
+    printf("====================================\n");
+    printf(" 1. Make another transaction\n");
+    printf(" 2. Return to main menu\n");
+    printf(" 3. Exit\n");
+    printf("====================================\n");
+    printf(" OPTION: ");
+    if (scanf("%d", &option) != 1) {
+      while (getchar() != '\n')
+        ;
+      option = 0; // force loop again
+    }
+
     clean();
 
   } while (option == 1);
+
   switch (option) {
   case 2:
     return;
-    break;
-
   case 3:
     exit(0);
-    break;
   }
 }
