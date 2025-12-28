@@ -31,4 +31,7 @@ void transfer();
 unsigned long get_next_txn_id(void);
 void print_datetime(time_t raw_time);
 void veiw_transaction();
+void user_view_account();
+void update_account(void);
+
 #endif

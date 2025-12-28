@@ -1,5 +1,8 @@
-// gcc check-account-balance.c clean.c make-transaction.c user-login.c time.c
-// trx-id.c user-main.c user-menu.c - o c_f
+/*gcc check-account-balance.c clean.c make-transaction.c user-login.c time.c
+  user-veiw_account.c trx-id.c user-main.c user-menu.c user-veiw-transaction.c
+  -o op
+ */
+
 #include "user-header.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,19 +25,17 @@ int main() {
       veiw_transaction();
       break;
     case 4:
-
+      user_view_account();
       break;
     case 5:
-
+      update_account();
       break;
+
     case 6:
-
-      break;
-    case 7:
       // logout and login again
       main();
       break;
-    case 8:
+    case 7:
       exit(0); // exit program
     default:
       printf("Invalid option!\n");
