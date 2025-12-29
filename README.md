@@ -1,149 +1,55 @@
-🏦 Banking Management System (C)
+# 🏦 Banking Management System (C Programming)
 
-Welcome to my Banking Management System project — a console-based application written in C that simulates real-world banking operations using file handling, structures, and role-based access control.
+A **console-based Banking Management System** built in **C**, simulating real-world banking operations.  
+The project uses **binary files**, **structures**, and **modular programming** to manage both **Banker** and **User** roles securely.
 
-This project reflects my journey of strengthening core C fundamentals and understanding how real systems manage data persistently.
+---
 
-💻 About the Project
+## 📌 Overview
 
-This system allows two types of users:
+This system allows:
 
-👤 Bank Users
+- **Bankers** to manage customer accounts  
+- **Users** to securely access their accounts  
+- Persistent storage using **binary files**  
+- Clean, **menu-driven terminal UI**
 
-🏦 Bankers (Admin)
+The project emphasizes **data consistency**, **safe transaction logic**, and **role-based access**.
 
-Each role has its own permissions, workflows, and menu system — similar to how actual banking software operates.
+---
 
-🚀 Features
-👤 User Features
+## 👥 User Roles
 
-Secure login system
+### 🔐 Banker
 
-Check account balance
+- Create new accounts  
+- View account details  
+- Update user information  
+- Freeze / activate accounts  
+- Monitor system-level operations  
 
-Transfer money to another account
+### 👤 User
 
-View transaction history
+- Secure login  
+- Check account balance  
+- Transfer money  
+- View transaction history  
+- View / update personal info  
+- Logout safely  
 
-View personal account information
+---
 
-Update personal details (name, ID, password)
+## ⚙️ Core Features
 
-Logout or exit safely
+- **Secure login system** (Banker & User)  
+- **Binary file storage** (`user.bin`, `transaction.bin`)  
+- **Transaction history** with timestamps  
+- **Account freeze / activation**  
+- Input validation and error handling  
+- Box-style, readable console UI  
+- Modular and well-commented code  
 
-🏦 Banker Features
+---
 
-Banker authentication
+## 🗂️ Project Structure
 
-View user accounts
-
-Update user information
-
-Freeze or activate accounts
-
-Safe file-based record updates
-
-🗂️ File Structure
-.
-├── main.c
-├── user-main.c
-├── user-login.c
-├── user-menu.c
-├── check-account-balance.c
-├── make-transaction.c
-├── user-view-transaction.c
-├── user-view-account.c
-├── user-update-info.c
-├── trx-id.c
-├── time.c
-├── clean.c
-├── common-structs-header.h
-├── user.bin
-├── transaction.bin
-└── temp.bin
-
-💾 Data Storage
-File Name	Purpose
-user.bin	Stores user account records
-transaction.bin	Stores transaction history
-temp.bin	Used for safe updates (commit/rollback)
-
-All records are stored using binary files for efficiency and persistence.
-
-🧠 Concepts Used
-
-C Structures
-
-Binary File Handling (fread, fwrite)
-
-Modular Programming
-
-Role-based Access Control
-
-Global State Management
-
-Input Validation
-
-Transaction Commit & Rollback Logic
-
-Time & Date Handling
-
-⚙️ Compilation & Execution
-Compile
-gcc check-account-balance.c clean.c make-transaction.c user-login.c time.c \
-user-view-account.c trx-id.c user-main.c user-menu.c \
-user-view-transaction.c user-update-info.c main.c -o bank_system
-
-Run
-./bank_system
-
-🔄 Program Flow
-
-Program starts
-
-User selects User or Banker
-
-Login validation
-
-Role-specific menu appears
-
-Operations performed
-
-Data stored safely in files
-
-User logs out or exits
-
-⚠️ Limitations
-
-Console-based interface
-
-Passwords stored as plain text
-
-Designed for single-user execution
-
-Educational purpose only
-
-🎯 Learning Goals Behind This Project
-
-Strengthen C fundamentals
-
-Understand real-world file-based systems
-
-Practice safe data updates
-
-Improve logical problem-solving
-
-Prepare for advanced system-level programming
-
-👤 Author
-
-Talha Burhan
-Computer Science Student
-GitHub: https://github.com/creative-talha
-
-⭐ Final Note
-
-This project is part of my learning journey in C programming.
-Feedback, suggestions, and improvements are always welcome!
-
-If you found this project useful or interesting, feel free to ⭐ star the repository.
