@@ -40,7 +40,7 @@ int main() {
           update_user_account();
           break;
         case '5':
-          freeze_actiavte_account();
+          freeze_activate_account();
           break;
         case '6':
           goto main_menu; // logout back to main menu
