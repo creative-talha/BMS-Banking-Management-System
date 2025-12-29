@@ -1,220 +1,144 @@
-Banking Management System (C Language)
-Overview
-The Banking Management System is a console-based application developed in C, designed to simulate real-world banking operations. The system supports two roles—Banker and User—each with clearly separated responsibilities and access controls. All records are stored persistently using binary files, ensuring data integrity across executions.
-This project emphasizes file handling, structures, modular programming, and secure flow control without recursion.
+Banking Management System (C)
 
-Features
-User Module
+A console-based Banking Management System written in C, implementing real-world banking logic using binary file handling, modular design, and role-based access control.
 
+This project supports User and Banker roles with separate workflows and persistent data storage.
 
-Secure user login
+📌 Key Features
+👤 User Module
 
+Secure login
 
-View account balance
+Check account balance
 
-
-Transfer funds
-
+Transfer money to another account
 
 View transaction history
 
-
-View personal account information
-
+View account information
 
 Update personal details (name, ID, password)
 
+Logout / Exit safely
 
-Logout and exit options
+🏦 Banker Module
 
-
-Banker Module
-
-
-Banker login
-
+Banker authentication
 
 Create new user accounts
 
+View user details
 
-View user accounts
+Update user information
 
+Freeze / activate user accounts
 
-Update user account details
+Safe file-based updates
 
-
-Freeze or activate accounts
-
-
-Logout and exit options
-
-
-
-System Design
-Role-Based Entry
-At program start, the system asks the user to choose:
-
-
-Banker
-
-
-User
-
-
-Exit
-
-
-Each role is routed to its own login and menu system.
-Data Storage
-All data is stored using binary files:
-
-
-user.bin – stores user account records
-
-
-transaction.bin – stores transaction history
-
-
-temp.bin – used for safe updates during file modification
-
-
-Core Structures
-
-
-struct user – stores account details
-
-
-struct transaction – stores transaction metadata
-
-
-Global user_info structure holds the currently logged-in user
-
-
-
-File Structure
+🗂️ Project Structure
 .
 ├── main.c
-├── common-structs-header.h
-├── user-header.h
-├── banker_header.h
+├── user-main.c
 ├── user-login.c
 ├── user-menu.c
-├── user-main.c
 ├── check-account-balance.c
 ├── make-transaction.c
-├── user-veiw-transaction.c
-├── user-veiw_account.c
+├── user-view-transaction.c
+├── user-view-account.c
 ├── user-update-info.c
 ├── trx-id.c
 ├── time.c
 ├── clean.c
-├── banker files...
+├── common-structs-header.h
 ├── user.bin
 ├── transaction.bin
-└── README.md
+└── temp.bin
 
+💾 Data Storage
+File	Description
+user.bin	Stores all user account records
+transaction.bin	Stores transaction history
+temp.bin	Temporary file for safe updates
 
-Compilation
-Use GCC to compile all source files:
+All data is stored in binary format for efficiency and persistence.
+
+🧩 Core Data Structures
+
+struct user – stores account details
+
+struct transaction – stores transaction records
+
+user_info – global structure holding the logged-in user's data
+
+⚙️ Compilation & Execution
+Compile the project
 gcc check-account-balance.c clean.c make-transaction.c user-login.c time.c \
-user-veiw_account.c trx-id.c user-main.c user-menu.c user-veiw-transaction.c \
-user-update-info.c main.c -o bank_system
+user-view-account.c trx-id.c user-main.c user-menu.c \
+user-view-transaction.c user-update-info.c main.c -o bank_system
 
-Run the program:
+Run
 ./bank_system
 
+🔄 Program Flow
 
-Input Validation & Safety
+Program starts
 
+User selects User or Banker
 
-All menu inputs are validated
+Authentication is performed
 
+Role-specific menu is displayed
 
-Invalid numeric or character inputs are handled safely
+Operations are executed
 
+Data is written to binary files
 
-File updates use temporary files to prevent data corruption
+User returns to menu or exits
 
+✅ Validation & Safety Measures
 
-Logout uses controlled program flow (no recursion)
+Menu input validation
 
+Frozen accounts cannot perform transactions
 
+Sender ≠ receiver validation
 
-Key Concepts Used
+Insufficient balance protection
 
+Safe file updates using temporary files
 
-Structures and nested structures
+Controlled exit and logout handling
 
+🛠️ Concepts Used
 
-Binary file handling (fread, fwrite)
+C Structures
 
+Binary File Handling (fread, fwrite)
 
-Modular programming
+Modular Programming
 
+Role-Based Access Control
 
-Input validation
+Persistent Storage
 
+Input Validation
 
-Role-based access control
+File Commit / Rollback Logic
 
-
-Persistent storage
-
-
-Secure program flow
-
-
-
-Limitations
-
+⚠️ Known Limitations
 
 Console-based interface
 
+Passwords stored in plain text
 
-No encryption for stored passwords
+Single-session execution model
 
+👤 Author
 
-Single-user session at a time
-
-
-
-Future Improvements
-
-
-Password hashing
-
-
-Admin privilege levels
-
-
-Search and filter options
-
-
-GUI or web interface
-
-
-Multi-user concurrency
-
-
-
-Author
 Talha Burhan
 Computer Science Student
-Project: Banking Management System (C)
+Project: Banking Management System in C
 
-If you want, I can now:
+📄 License
 
-
-Convert this into a PDF or DOC
-
-
-Shorten it for university submission
-
-
-Add screenshots section
-
-
-Add algorithm / flowchart description
-
-
-Just tell me.
+This project is intended for educational and learning purposes only.
