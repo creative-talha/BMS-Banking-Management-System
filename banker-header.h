@@ -1,10 +1,6 @@
 #ifndef myfunc_h
 #define myfunc_h
-// structures
-struct user {
-  char id[16], Name[51], password[21], status;
-  unsigned int balance;
-};
+
 // functions
 void clean(void);
 void login();

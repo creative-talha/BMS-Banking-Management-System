@@ -1,4 +1,4 @@
-#include "banker-header.h"
+#include "common-structs-header.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
