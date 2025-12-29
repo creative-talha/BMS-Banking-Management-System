@@ -1,13 +1,23 @@
-Banking Management System (C)
+🏦 Banking Management System (C)
 
-A console-based Banking Management System written in C, implementing real-world banking logic using binary file handling, modular design, and role-based access control.
+Welcome to my Banking Management System project — a console-based application written in C that simulates real-world banking operations using file handling, structures, and role-based access control.
 
-This project supports User and Banker roles with separate workflows and persistent data storage.
+This project reflects my journey of strengthening core C fundamentals and understanding how real systems manage data persistently.
 
-📌 Key Features
-👤 User Module
+💻 About the Project
 
-Secure login
+This system allows two types of users:
+
+👤 Bank Users
+
+🏦 Bankers (Admin)
+
+Each role has its own permissions, workflows, and menu system — similar to how actual banking software operates.
+
+🚀 Features
+👤 User Features
+
+Secure login system
 
 Check account balance
 
@@ -15,27 +25,25 @@ Transfer money to another account
 
 View transaction history
 
-View account information
+View personal account information
 
 Update personal details (name, ID, password)
 
-Logout / Exit safely
+Logout or exit safely
 
-🏦 Banker Module
+🏦 Banker Features
 
 Banker authentication
 
-Create new user accounts
-
-View user details
+View user accounts
 
 Update user information
 
-Freeze / activate user accounts
+Freeze or activate accounts
 
-Safe file-based updates
+Safe file-based record updates
 
-🗂️ Project Structure
+🗂️ File Structure
 .
 ├── main.c
 ├── user-main.c
@@ -55,23 +63,33 @@ Safe file-based updates
 └── temp.bin
 
 💾 Data Storage
-File	Description
-user.bin	Stores all user account records
+File Name	Purpose
+user.bin	Stores user account records
 transaction.bin	Stores transaction history
-temp.bin	Temporary file for safe updates
+temp.bin	Used for safe updates (commit/rollback)
 
-All data is stored in binary format for efficiency and persistence.
+All records are stored using binary files for efficiency and persistence.
 
-🧩 Core Data Structures
+🧠 Concepts Used
 
-struct user – stores account details
+C Structures
 
-struct transaction – stores transaction records
+Binary File Handling (fread, fwrite)
 
-user_info – global structure holding the logged-in user's data
+Modular Programming
+
+Role-based Access Control
+
+Global State Management
+
+Input Validation
+
+Transaction Commit & Rollback Logic
+
+Time & Date Handling
 
 ⚙️ Compilation & Execution
-Compile the project
+Compile
 gcc check-account-balance.c clean.c make-transaction.c user-login.c time.c \
 user-view-account.c trx-id.c user-main.c user-menu.c \
 user-view-transaction.c user-update-info.c main.c -o bank_system
@@ -85,60 +103,47 @@ Program starts
 
 User selects User or Banker
 
-Authentication is performed
+Login validation
 
-Role-specific menu is displayed
+Role-specific menu appears
 
-Operations are executed
+Operations performed
 
-Data is written to binary files
+Data stored safely in files
 
-User returns to menu or exits
+User logs out or exits
 
-✅ Validation & Safety Measures
-
-Menu input validation
-
-Frozen accounts cannot perform transactions
-
-Sender ≠ receiver validation
-
-Insufficient balance protection
-
-Safe file updates using temporary files
-
-Controlled exit and logout handling
-
-🛠️ Concepts Used
-
-C Structures
-
-Binary File Handling (fread, fwrite)
-
-Modular Programming
-
-Role-Based Access Control
-
-Persistent Storage
-
-Input Validation
-
-File Commit / Rollback Logic
-
-⚠️ Known Limitations
+⚠️ Limitations
 
 Console-based interface
 
-Passwords stored in plain text
+Passwords stored as plain text
 
-Single-session execution model
+Designed for single-user execution
+
+Educational purpose only
+
+🎯 Learning Goals Behind This Project
+
+Strengthen C fundamentals
+
+Understand real-world file-based systems
+
+Practice safe data updates
+
+Improve logical problem-solving
+
+Prepare for advanced system-level programming
 
 👤 Author
 
 Talha Burhan
 Computer Science Student
-Project: Banking Management System in C
+GitHub: https://github.com/creative-talha
 
-📄 License
+⭐ Final Note
 
-This project is intended for educational and learning purposes only.
+This project is part of my learning journey in C programming.
+Feedback, suggestions, and improvements are always welcome!
+
+If you found this project useful or interesting, feel free to ⭐ star the repository.
