@@ -4,11 +4,11 @@
 #include <string.h>
 #include <time.h>
 
-void transfer() {
+void deposit() {
   // variables
-  int found = 0, not_eligible = 0, amount_check = 1;
-  int sender_confirmation = 0, receiver_confirmation = 0;
-  int option = 1;
+  int found = 0, not_eligible = 0;
+  int receiver_confirmation = 0;
+  int option = 1, amount_check = 1;
   unsigned int amount = 0;
 
   // files
@@ -20,21 +20,10 @@ void transfer() {
 
   // loop for making multiple transactions
   do {
-    // check if sender account is frozen
-    if (user_info.status == 'F') {
-      printf("====================================\n");
-      printf("           NOTICE\n");
-      printf(" Your account has been freezed by the Bank.\n");
-      printf(" You cannot make a transaction.\n");
-      printf("====================================\n");
-      option = 2;
-      break;
-    }
-
     found = 0;
-    amount_check = 1;
-    sender_confirmation = 0;
     receiver_confirmation = 0;
+    amount_check = 1;
+    amount = 0;
 
     // loop until valid receiver is found
     while (found == 0) {
@@ -56,15 +45,6 @@ void transfer() {
 
       while (fread(&u, sizeof(u), 1, fu) == 1) {
         not_eligible = 0;
-
-        if (strcmp(t.account_id, user_info.id) == 0) {
-          printf("====================================\n");
-          printf("           ERROR\n");
-          printf(" Receiver cannot be the same as sender\n");
-          printf("====================================\n");
-          not_eligible = 1;
-          break;
-        }
 
         if ((strcmp(u.id, t.account_id) == 0) && u.status != 'A') {
           printf("====================================\n");
@@ -91,7 +71,6 @@ void transfer() {
       }
     }
 
-    // loop until valid amount is entered
     while (amount_check == 1) {
       printf("====================================\n");
       printf("           ENTER AMOUNT\n");
@@ -115,11 +94,6 @@ void transfer() {
         printf("           ERROR\n");
         printf(" Amount must be greater than 0\n");
         printf("====================================\n");
-      } else if (amount > user_info.balance) {
-        printf("====================================\n");
-        printf("           ERROR\n");
-        printf(" Insufficient balance\n");
-        printf("====================================\n");
       } else
         amount_check = 0;
     }
@@ -133,10 +107,6 @@ void transfer() {
     }
 
     while (fread(&u, sizeof(u), 1, fu) == 1) {
-      if (strcmp(user_info.id, u.id) == 0) {
-        u.balance -= amount;
-        sender_confirmation = 1;
-      }
       if (strcmp(t.account_id, u.id) == 0) {
         u.balance += amount;
         receiver_confirmation = 1;
@@ -148,15 +118,13 @@ void transfer() {
     fclose(fu);
     fclose(ft);
 
-    if (sender_confirmation && receiver_confirmation) {
+    if (receiver_confirmation) {
       remove("user.bin");
       rename("temp.bin", "user.bin");
-      user_info.balance -= amount;
 
       printf("====================================\n");
       printf("          SUCCESS\n");
       printf(" Transaction completed successfully\n");
-      printf(" New Balance: %u\n", user_info.balance);
       printf("====================================\n");
     } else {
       remove("temp.bin");
@@ -176,9 +144,8 @@ void transfer() {
 
     t.txn_id = get_next_txn_id();
     t.amount = amount;
-    strcpy(t.performed_by, user_info.id); // sender
-    // receiver account already in t.account_id
-    t.type = 'T';
+    strcpy(t.performed_by, "Banker"); // sender
+    t.type = 'D';                     // deposit
     t.timestamp = time(NULL);
 
     fwrite(&t, sizeof(t), 1, fp);
@@ -186,13 +153,10 @@ void transfer() {
 
     // repeat / menu / exit
 
-    // cleaning terminal
-    clean();
-
     printf("====================================\n");
     printf("         TRANSACTION MENU\n");
     printf("====================================\n");
-    printf(" 1. Make another transaction\n");
+    printf(" 1. Make another Deposit\n");
     printf(" 2. Return to main menu\n");
     printf(" 3. Exit\n");
     printf("====================================\n");

@@ -16,7 +16,6 @@ struct transaction {
   char account_id[16];  // Account affected
   char type;            // 'D' = Deposit, 'W' = Withdraw, 'T' = Transfer
   unsigned int amount;
-  unsigned int balance_after;
   char performed_by[16]; // ID of sender (user ID or banker ID)
   time_t timestamp;
 };

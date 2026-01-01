@@ -34,17 +34,25 @@ int main() {
           create_account();
           break;
         case '2':
+          deposit();
+          break;
+        case '3':
+          withdrawal();
+        case '4':
           view_account();
           break;
-        case '4':
-          update_user_account();
-          break;
         case '5':
-          freeze_activate_account();
+          banker_view_transaction();
           break;
         case '6':
-          goto main_menu; // logout back to main menu
+          update_user_account();
+          break;
         case '7':
+          freeze_activate_account();
+          break;
+        case '8':
+          goto main_menu; // logout back to main menu
+        case '9':
           exit(0); // exit program
         default:
           break;

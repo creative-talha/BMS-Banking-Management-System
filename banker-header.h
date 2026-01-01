@@ -9,6 +9,8 @@ void create_account();
 void view_account(void);
 void update_user_account(void);
 void freeze_activate_account();
-int main();
+void deposit();
+void withdrawal();
+void banker_view_transaction();
 
 #endif

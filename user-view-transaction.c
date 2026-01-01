@@ -33,7 +33,6 @@ void view_transaction() {
       printf(" Account ID    : %s\n", t.account_id);
       printf(" Performed By  : %s\n", t.performed_by);
       printf(" Amount        : %u\n", t.amount);
-      printf(" Balance After : %u\n", t.balance_after);
       printf(" Type          : %c\n", t.type);
       printf(" Timestamp     : ");
       print_datetime(t.timestamp);
