@@ -96,10 +96,7 @@ The project emphasizes **data consistency**, **safe transaction logic**, and **r
 ### **Linux / macOS**
 ```bash
 # Compile all files together
-gcc main-main.c banker-login.c banker-menu.c create-account.c view-account.c \
-update-user-account.c freeze-activate-account.c user-login.c user-menu.c \
-check-account-balance.c make-transaction.c user-view-account.c \
-user-view-transaction.c user-update-info.c trx-id.c time.c clean.c -o BMS
+gcc main.c banker-login.c banker-menu.c create-account.c view-account.c update-user-account.c freeze-activate-account.c user-login.c user-menu.c check-account-balance.c make-transaction.c user-view-account.c user-view-transaction.c user-update-info.c trx-id.c time.c clean.c banker-deposit.c banker-withdrawal.c banker-veiw-transaction.c -o BMS
 
 # Run the program
 ./BMS
@@ -107,10 +104,7 @@ user-view-transaction.c user-update-info.c trx-id.c time.c clean.c -o BMS
 ### **Windows**
 ```cmd
 :: Compile all files together
-gcc main-main.c banker-login.c banker-menu.c create-account.c view-account.c ^
-update-user-account.c freeze-activate-account.c user-login.c user-menu.c ^
-check-account-balance.c make-transaction.c user-view-account.c ^
-user-view-transaction.c user-update-info.c trx-id.c time.c clean.c -o BMS.exe
+gcc main.c banker-login.c banker-menu.c create-account.c view-account.c update-user-account.c freeze-activate-account.c user-login.c user-menu.c check-account-balance.c make-transaction.c user-view-account.c user-view-transaction.c user-update-info.c trx-id.c time.c clean.c banker-deposit.c banker-withdrawal.c banker-veiw-transaction.c -o BMS.exe
 
 :: Run the program
 BMS.exe
